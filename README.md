@@ -9,7 +9,7 @@ Due to the lack of available high quality pictures available we utlize the Unrea
 ## Corsican Database 
 To test the performance of our model we have utilized the Corsican Wildfire Database from _"Computer vision for wildfire research: an evolving image dataset for processing and analysis”_ which is one of the largest of its kind. [Insert more detail here on the website access etc.]
 
-https://www.sciencedirect.com/science/article/pii/S0379711217302114
+https://www.sciencedirect.com/science/article/pii/S0379711217302114 <br />
 http://cfdb.univ-corse.fr/index.php?menu=1
 
 ## Downloading the Data
