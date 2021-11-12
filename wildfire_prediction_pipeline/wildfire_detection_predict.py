@@ -13,10 +13,14 @@ from keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
 from tensorflow import keras
 from tensorflow.keras.models import Sequential
+import os
 
 def predict(img):
+    dir = '/'.join(os.getcwd().split('/')[:-1]) + '/wildfire_prediction_pipeline'
+    model = tf.keras.models.load_model('{}/model.h5'.format(dir))
     
-    model = tf.keras.models.load_model('model.h5')
+    classes = {1: 'Fire Detected', 0: 'No Fire Detected'}
+
     width = model.input_shape[2]
     height = model.input_shape[1]
 
@@ -26,7 +30,7 @@ def predict(img):
     img_array = tf.expand_dims(img, 0)
     predictions = model.predict(img_array)
     score = tf.nn.softmax(predictions[0])
-    prediction = np.argmax(score)
+    prediction = classes[np.argmax(score)]
 
     return prediction
 
