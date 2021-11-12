@@ -1,4 +1,3 @@
-
 import os
 import pandas as pd
 import numpy as np
@@ -30,6 +29,7 @@ def test_train_split(data):
     test_images, test_labels = zip(*test)
     
     return train_images, train_labels, dev_images, dev_labels, test_images, test_labels
+
 
 
 def cnn_model(data):
@@ -81,8 +81,8 @@ if __name__ == '__main__':
     with open('{}/artifacts/{}'.format(dir, args.processed_images), 'rb') as pickle_file:
         data = pickle.load(pickle_file)
 
-    
     model = cnn_model(data)
-
+    model = model.save("model.h5")
+    
     with open('{}/artifacts/{}'.format(dir, args.output_file), 'wb+') as out:
-        pickle.dump(data, out)
+        pickle.dump(model, out)
