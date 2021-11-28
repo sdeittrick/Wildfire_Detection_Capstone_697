@@ -219,3 +219,6 @@ wildfire_prediction_pipeline/input_images/wildfire_train_set - Unprocessed/heavy
 .DS_Store
 .DS_Store
 .DS_Store
+.DS_Store
+wildfire_prediction_pipeline/artifacts/test_images_pkl.pkl
+wildfire_prediction_pipeline/artifacts/train_images_pkl.pkl
