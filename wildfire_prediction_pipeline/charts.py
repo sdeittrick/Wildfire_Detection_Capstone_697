@@ -26,3 +26,42 @@ def line_chart(history):
     #save as png
 
     return performanceChart
+
+def plot_confusion_matrix_2(cm, normalize=True):
+    
+    group_names = ['True Negative (no fire)','False Positive (fire)','False Negative (no fire)','True Positive (fire)']
+
+    group_counts = ["{0:0.0f}".format(value) for value in
+                    cm.flatten()]
+
+    group_percentages = ["{0:.2%}".format(value) for value in
+                         cm.flatten()/np.sum(cm)]
+
+#     labels = [f"{v1}\n{v2}\n{v3}" for v1, v2, v3 in
+#               zip(group_names,group_counts,group_percentages)]
+
+    if normalize:
+        labels = [f"{v1}\n\n{v2}" for v1, v2 in
+              zip(group_names,group_percentages)]
+    else:
+        labels = [f"{v1}\n\n{v2}" for v1, v2 in
+              zip(group_names,group_counts)]
+
+    labels = np.asarray(labels).reshape(2,2)
+
+    ax = sns.heatmap(cm, annot=labels, fmt='', cmap='Reds')
+    
+    sns.set_style('whitegrid', {'font.family':'arial', 'font.arial':'Arial Narrow'})
+
+    ax.set_title('Image confusion matrix\n',fontdict = { 'fontsize': 16});
+    ax.set_xlabel('\nPredicted Values',fontdict = { 'fontsize': 12})
+    ax.set_ylabel('Actual Values ',fontdict = { 'fontsize': 12});
+
+    ## Ticket labels - List must be in alphabetical order
+    ax.xaxis.set_ticklabels(['False','True'])
+    ax.yaxis.set_ticklabels(['False','True'])
+    
+    ax.figure.tight_layout()
+
+    plt.ylim(2, 0) # update the ylim(bottom, top) values
+    plt.show() # ta-da!
