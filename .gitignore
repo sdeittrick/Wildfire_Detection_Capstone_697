@@ -222,3 +222,7 @@ wildfire_prediction_pipeline/input_images/wildfire_train_set - Unprocessed/heavy
 .DS_Store
 wildfire_prediction_pipeline/artifacts/test_images_pkl.pkl
 wildfire_prediction_pipeline/artifacts/train_images_pkl.pkl
+wildfire_prediction_pipeline/artifacts/train_images_pkl_unprocessed.pkl
+.gitignore
+wildfire_prediction_pipeline/artifacts/train_images_pkl_all.pkl
+wildfire_prediction_pipeline/artifacts/test_images_pkl_even_ratio.pkl

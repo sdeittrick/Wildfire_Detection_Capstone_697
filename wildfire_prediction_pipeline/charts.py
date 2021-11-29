@@ -9,9 +9,9 @@ def line_chart(history):
 
     history_df = pd.DataFrame(history.history).reset_index()
     history_df = history_df.rename(columns={'index':'epoch'})
-    accuracy_df = pd.melt(history_df, id_vars=['epoch'], value_vars=['accuracy', 'precision_m','recall_m','auc'])
+    accuracy_df = pd.melt(history_df, id_vars=['epoch'], value_vars=['accuracy', 'precision','recall','auc'])
     loss_df = pd.melt(history_df, id_vars=['epoch'], value_vars=['loss'])
-    history_df = pd.melt(history_df, id_vars=['epoch'], value_vars=['accuracy', 'precision_m','recall_m', 'auc', 'loss'])
+    history_df = pd.melt(history_df, id_vars=['epoch'], value_vars=['accuracy', 'precision','recall', 'auc', 'loss'])
     display(history_df.head())
 
     performanceChart = alt.Chart(history_df,title='Model performance').mark_line(size=3).encode(
