@@ -3,6 +3,11 @@ import numpy as np
 import altair as alt
 import seaborn as sns
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+import sklearn
+
+mpl.rcParams['figure.figsize'] = (12, 10)
+colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 
 
 def line_chart(history):
@@ -68,3 +73,34 @@ def plot_confusion_matrix_2(cm, normalize=True):
 
     plt.ylim(2, 0) # update the ylim(bottom, top) values
     plt.show() # ta-da!
+
+def plot_roc(name, labels, predictions, **kwargs):
+  fp, tp, _ = sklearn.metrics.roc_curve(labels, predictions)
+
+  plt.plot(100*fp, 100*tp, label=name, linewidth=2, **kwargs)
+  plt.xlabel('False positives [%]')
+  plt.ylabel('True positives [%]')
+  plt.xlim([-0.5,50])
+  plt.ylim([80,100.5])
+  plt.grid(True)
+  ax = plt.gca()
+  ax.set_aspect('equal')
+
+def plot_metrics(history):
+  metrics = ['loss', 'prc', 'precision', 'recall']
+  for n, metric in enumerate(metrics):
+    name = metric.replace("_"," ").capitalize()
+    plt.subplot(2,2,n+1)
+    plt.plot(history.epoch, history.history[metric], color=colors[0], label='Train')
+    plt.plot(history.epoch, history.history['val_'+metric],
+             color=colors[0], linestyle="--", label='Val')
+    plt.xlabel('Epoch')
+    plt.ylabel(name)
+    if metric == 'loss':
+      plt.ylim([0, plt.ylim()[1]])
+    elif metric == 'auc':
+      plt.ylim([0.8,1])
+    else:
+      plt.ylim([0,1])
+
+    plt.legend()

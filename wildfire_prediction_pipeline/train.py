@@ -108,7 +108,7 @@ def cnn_model(data):
 
 def train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_images, test_labels,
                     HP_NUM_UNITS, HP_DROPOUT, HP_OPTIMIZER,
-                    params, losses, accuracies, f1_scores, precisions, recalls, cms,
+                    params, losses, accuracies, f1_scores, precisions, recalls, cms, aucs,
                     units, dropouts, optimizers, histories, augmentModel=False):
     
     if augmentModel:
@@ -120,45 +120,74 @@ def train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_i
     data_augmentation,
     # tf.keras.layers.Rescaling(1./255),
     tf.keras.layers.Conv2D(16, 3, padding='same', activation='relu'),
+    # layers.Conv2D(32, (3,3), activation='relu'),
     tf.keras.layers.MaxPooling2D(),
     tf.keras.layers.Conv2D(32, 3, padding='same', activation='relu'),
+    # layers.Conv2D(64, (3,3), activation='relu'),
     tf.keras.layers.MaxPooling2D(),
     tf.keras.layers.Conv2D(64, 3, padding='same', activation='relu'),
+    # layers.Conv2D(128, (3,3), activation='relu'),
     tf.keras.layers.MaxPooling2D(),
 #     tf.keras.layers.Dropout(hparams[HP_DROPOUT]),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(hparams[HP_NUM_UNITS], activation=tf.nn.relu),
     tf.keras.layers.Dropout(hparams[HP_DROPOUT]),
     tf.keras.layers.Dense(10, activation=tf.nn.softmax),
+    # layers.Dense(1, activation='sigmoid')
     ])
+
+    METRICS = [
+    keras.metrics.TruePositives(name='tp'),
+    keras.metrics.FalsePositives(name='fp'),
+    keras.metrics.TrueNegatives(name='tn'),
+    keras.metrics.FalseNegatives(name='fn'), 
+    keras.metrics.BinaryAccuracy(name='accuracy'),
+    keras.metrics.Precision(name='precision'),
+    keras.metrics.Recall(name='recall'),
+    keras.metrics.AUC(name='auc'),
+    keras.metrics.AUC(name='prc', curve='PR'),
+    ]
 
     model.compile(
       optimizer=hparams[HP_OPTIMIZER],
       loss='sparse_categorical_crossentropy',
-#       metrics=['accuracy'],
-      metrics=['accuracy',f1_m,precision_m, recall_m]#,areaUnderCurve]
+    #   loss=tf.keras.losses.BinaryCrossentropy(),
+    #   metrics=METRICS
+      metrics=['accuracy',f1_m,precision_m, recall_m]#,areaUnderCurve],
     )
     
-    model.fit(train_images, train_labels, epochs=epochs)
-    history = model.fit(train_images, train_labels, epochs=epochs)
+    model.fit(train_images, train_labels, epochs=epochs)#validation_data=(test_images, test_labels),
+    model.save("artifacts/model_all.h5")
+    # history = model.fit(train_images, train_labels, epochs=epochs)
     histories.append(model.history)
-    loss, accuracy, f1_score, precision, recall= model.evaluate(test_images, test_labels) #, areaUnder 
+    loss, accuracy, f1_score, precision, recall= model.evaluate(test_images, test_labels)
     losses.append(loss)
     accuracies.append(accuracy)
     f1_scores.append(f1_score)
     precisions.append(precision)
     recalls.append(recall)
     # aucs.append(areaUnder)
+
+    train_predictions_baseline = model.predict(train_images)
+    test_predictions_baseline = model.predict(test_images)
     
     predictions = model.predict(x=test_images, steps=len(test_images), verbose=0)
     cm = confusion_matrix(y_true=test_labels, y_pred=np.argmax(predictions, axis=-1))
     cms.append(cm)
+
+    #calculate AUC of model
+    # auc = metrics.roc_auc_score(test_labels, y_pred_proba)
+    # auc, update_op_auc = tf.metrics.auc(y_true, y_scores, name = 'AUC')
+    # auc_value, auc_op = tf.metrics.auc(test_labels, predictions[:, 1])
+    # print(auc)
+    aucs.append(0)
     
-    return loss, accuracy, f1_score, precision, recall#, areaUnder
+    # return loss, accuracy, f1_score, precision, recall#, areaUnder
+    return model
 
 def run(run_dir, hparams, epochs, input_shape,train_images,train_labels,test_images, test_labels,
         HP_NUM_UNITS, HP_DROPOUT, HP_OPTIMIZER, 
-        params, losses, accuracies, f1_scores, precisions, recalls, cms,
+        params, losses, accuracies, f1_scores, precisions, recalls, cms, aucs,
         units, dropouts, optimizers, histories, augmentModel=False):
 
     with tf.summary.create_file_writer(run_dir).as_default():
@@ -166,7 +195,7 @@ def run(run_dir, hparams, epochs, input_shape,train_images,train_labels,test_ima
 
         model = train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_images, test_labels,
                                 HP_NUM_UNITS, HP_DROPOUT, HP_OPTIMIZER,
-                                params, losses, accuracies, f1_scores, precisions, recalls, cms,
+                                params, losses, accuracies, f1_scores, precisions, recalls, cms, aucs,
                                 units, dropouts, optimizers, histories, augmentModel)
     return model
 
