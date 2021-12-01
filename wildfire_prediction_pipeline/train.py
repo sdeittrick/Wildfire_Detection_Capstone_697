@@ -107,9 +107,9 @@ def cnn_model(data):
 
 
 def train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_images, test_labels,
-                    HP_NUM_UNITS, HP_DROPOUT, HP_OPTIMIZER,
+                    HP_NUM_UNITS, HP_DROPOUT, HP_OPTIMIZER, predictions,
                     params, losses, accuracies, f1_scores, precisions, recalls, cms, aucs,
-                    units, dropouts, optimizers, histories, augmentModel=False):
+                    units, dropouts, optimizers, histories, augmentModel=True):
     
     if augmentModel:
         data_augmentation = augment_layers(input_shape)
@@ -119,13 +119,13 @@ def train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_i
     model = tf.keras.models.Sequential([
     data_augmentation,
     # tf.keras.layers.Rescaling(1./255),
-    tf.keras.layers.Conv2D(16, 3, padding='same', activation='relu'),
+    tf.keras.layers.Conv2D(32, 3, padding='same', activation='relu'),
     # layers.Conv2D(32, (3,3), activation='relu'),
     tf.keras.layers.MaxPooling2D(),
-    tf.keras.layers.Conv2D(32, 3, padding='same', activation='relu'),
+    tf.keras.layers.Conv2D(64, 3, padding='same', activation='relu'),
     # layers.Conv2D(64, (3,3), activation='relu'),
     tf.keras.layers.MaxPooling2D(),
-    tf.keras.layers.Conv2D(64, 3, padding='same', activation='relu'),
+    tf.keras.layers.Conv2D(128, 3, padding='same', activation='relu'),
     # layers.Conv2D(128, (3,3), activation='relu'),
     tf.keras.layers.MaxPooling2D(),
 #     tf.keras.layers.Dropout(hparams[HP_DROPOUT]),
@@ -167,12 +167,10 @@ def train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_i
     precisions.append(precision)
     recalls.append(recall)
     # aucs.append(areaUnder)
-
-    train_predictions_baseline = model.predict(train_images)
-    test_predictions_baseline = model.predict(test_images)
     
-    predictions = model.predict(x=test_images, steps=len(test_images), verbose=0)
-    cm = confusion_matrix(y_true=test_labels, y_pred=np.argmax(predictions, axis=-1))
+    prediction = model.predict(x=test_images, steps=len(test_images), verbose=0)
+    predictions.append(prediction)
+    cm = confusion_matrix(y_true=test_labels, y_pred=np.argmax(prediction, axis=-1))
     cms.append(cm)
 
     #calculate AUC of model
@@ -186,15 +184,15 @@ def train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_i
     return model
 
 def run(run_dir, hparams, epochs, input_shape,train_images,train_labels,test_images, test_labels,
-        HP_NUM_UNITS, HP_DROPOUT, HP_OPTIMIZER, 
+        HP_NUM_UNITS, HP_DROPOUT, HP_OPTIMIZER, predictions,
         params, losses, accuracies, f1_scores, precisions, recalls, cms, aucs,
-        units, dropouts, optimizers, histories, augmentModel=False):
+        units, dropouts, optimizers, histories, augmentModel=True):
 
     with tf.summary.create_file_writer(run_dir).as_default():
         hp.hparams(hparams)  # record the values used in this trial
 
         model = train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_images, test_labels,
-                                HP_NUM_UNITS, HP_DROPOUT, HP_OPTIMIZER,
+                                HP_NUM_UNITS, HP_DROPOUT, HP_OPTIMIZER, predictions,
                                 params, losses, accuracies, f1_scores, precisions, recalls, cms, aucs,
                                 units, dropouts, optimizers, histories, augmentModel)
     return model
