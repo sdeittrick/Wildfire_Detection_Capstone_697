@@ -104,3 +104,18 @@ def plot_metrics(history):
       plt.ylim([0,1])
 
     plt.legend()
+
+def plot_images(images, labels):
+    import math
+
+    p_size = 5
+
+    class_names = ['no_fire','fire']
+    plt.figure(figsize=(5,5))
+    for i in range(p_size**2):
+        plt.subplot(p_size,p_size,i+1)
+        plt.xticks([])
+        plt.yticks([])
+        plt.grid(False)
+        plt.imshow(images[i])
+        plt.xlabel(class_names[labels[i][0]])

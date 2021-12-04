@@ -156,7 +156,8 @@ def train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_i
       metrics=['accuracy',f1_m,precision_m, recall_m]#,areaUnderCurve],
     )
     
-    model.fit(train_images, train_labels, epochs=epochs)#validation_data=(test_images, test_labels),
+
+    model.fit(train_images, train_labels, validation_data=(test_images, test_labels), epochs=epochs)#validation_data=(test_images, test_labels),
     model.save("artifacts/model_all.h5")
     # history = model.fit(train_images, train_labels, epochs=epochs)
     histories.append(model.history)
