@@ -117,7 +117,7 @@ def train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_i
         data_augmentation = ''
     
     model = tf.keras.models.Sequential([
-    data_augmentation,
+    # data_augmentation,
     # tf.keras.layers.Rescaling(1./255),
     tf.keras.layers.Conv2D(32, 3, padding='same', activation='relu'),
     # layers.Conv2D(32, (3,3), activation='relu'),
@@ -157,7 +157,7 @@ def train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_i
     )
     
 
-    model.fit(train_images, train_labels, validation_data=(test_images, test_labels), epochs=epochs)#validation_data=(test_images, test_labels),
+    model.fit(train_images, train_labels, epochs=epochs)#validation_data=(test_images, test_labels),
     model.save("artifacts/model_all.h5")
     # history = model.fit(train_images, train_labels, epochs=epochs)
     histories.append(model.history)

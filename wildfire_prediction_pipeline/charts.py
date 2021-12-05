@@ -108,14 +108,30 @@ def plot_metrics(history):
 def plot_images(images, labels):
     import math
 
-    p_size = 5
+    p_size = 4
 
     class_names = ['no_fire','fire']
-    plt.figure(figsize=(5,5))
+    plt.figure(figsize=(35,35))
     for i in range(p_size**2):
         plt.subplot(p_size,p_size,i+1)
         plt.xticks([])
         plt.yticks([])
         plt.grid(False)
         plt.imshow(images[i])
-        plt.xlabel(class_names[labels[i][0]])
+        plt.xlabel(class_names[labels[i][0]], fontsize=18)
+
+def visualize(original, augmented):
+
+  p_size = 4
+
+  fig = plt.figure(figsize=(35,35))
+  plt.subplot(1,2,1)
+  plt.title('Original image')
+  plt.imshow(original)
+
+  plt.subplot(1,2,2)
+  plt.title('Augmented image')
+  plt.imshow(augmented)
+
+
+
