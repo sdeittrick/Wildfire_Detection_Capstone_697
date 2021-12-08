@@ -9,6 +9,18 @@ import sklearn
 mpl.rcParams['figure.figsize'] = (12, 10)
 colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
 
+def plot_roc(name, labels, predictions, **kwargs):
+  fp, tp, _ = sklearn.metrics.roc_curve(labels, predictions)
+
+  plt.plot(100*fp, 100*tp, label=name, linewidth=2, **kwargs)
+  plt.xlabel('False positives [%]')
+  plt.ylabel('True positives [%]')
+  plt.xlim([-0.5,100])
+  plt.ylim([0,100.5])
+  plt.grid(True)
+  ax = plt.gca()
+  ax.set_aspect('equal')
+
 
 def line_chart(history):
 
@@ -74,17 +86,17 @@ def plot_confusion_matrix_2(cm, normalize=True):
     plt.ylim(2, 0) # update the ylim(bottom, top) values
     plt.show() # ta-da!
 
-def plot_roc(name, labels, predictions, **kwargs):
-  fp, tp, _ = sklearn.metrics.roc_curve(labels, predictions)
+# def plot_roc(name, labels, predictions, **kwargs):
+#   fp, tp, _ = sklearn.metrics.roc_curve(labels, predictions)
 
-  plt.plot(100*fp, 100*tp, label=name, linewidth=2, **kwargs)
-  plt.xlabel('False positives [%]')
-  plt.ylabel('True positives [%]')
-  plt.xlim([-0.5,50])
-  plt.ylim([80,100.5])
-  plt.grid(True)
-  ax = plt.gca()
-  ax.set_aspect('equal')
+#   plt.plot(100*fp, 100*tp, label=name, linewidth=2, **kwargs)
+#   plt.xlabel('False positives [%]')
+#   plt.ylabel('True positives [%]')
+#   plt.xlim([-0.5,50])
+#   plt.ylim([80,100.5])
+#   plt.grid(True)
+#   ax = plt.gca()
+#   ax.set_aspect('equal')
 
 def plot_metrics(history):
   metrics = ['loss', 'prc', 'precision', 'recall']

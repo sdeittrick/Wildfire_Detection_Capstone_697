@@ -130,9 +130,9 @@ def train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_i
     tf.keras.layers.MaxPooling2D(),
 #     tf.keras.layers.Dropout(hparams[HP_DROPOUT]),
     tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(hparams[HP_NUM_UNITS], activation=tf.nn.relu),
+    tf.keras.layers.Dense(hparams[HP_NUM_UNITS], activation='relu'),
     tf.keras.layers.Dropout(hparams[HP_DROPOUT]),
-    tf.keras.layers.Dense(10, activation=tf.nn.softmax),
+    tf.keras.layers.Dense(1, activation='sigmoid'),
     # layers.Dense(1, activation='sigmoid')
     ])
 
@@ -150,10 +150,10 @@ def train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_i
 
     model.compile(
       optimizer=hparams[HP_OPTIMIZER],
-      loss='sparse_categorical_crossentropy',
-    #   loss=tf.keras.losses.BinaryCrossentropy(),
-    #   metrics=METRICS
-      metrics=['accuracy',f1_m,precision_m, recall_m]#,areaUnderCurve],
+    #  loss='sparse_categorical_crossentropy',
+      loss=tf.keras.losses.BinaryCrossentropy(),
+       metrics=METRICS
+    #  metrics=['accuracy',f1_m,precision_m, recall_m]#,areaUnderCurve],
     )
     
 
@@ -161,17 +161,29 @@ def train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_i
     model.save("artifacts/model_all.h5")
     # history = model.fit(train_images, train_labels, epochs=epochs)
     histories.append(model.history)
-    loss, accuracy, f1_score, precision, recall= model.evaluate(test_images, test_labels)
+    loss, tp, fp, tn, fn, accuracy, precision, recall, auc, prc= model.evaluate(test_images, test_labels)
+    
     losses.append(loss)
     accuracies.append(accuracy)
-    f1_scores.append(f1_score)
+    #f1_scores.append(f1_score)
     precisions.append(precision)
     recalls.append(recall)
-    # aucs.append(areaUnder)
+    aucs.append(auc)
     
-    prediction = model.predict(x=test_images, steps=len(test_images), verbose=0)
-    predictions.append(prediction)
-    cm = confusion_matrix(y_true=test_labels, y_pred=np.argmax(prediction, axis=-1))
+    # prediction = model.predict(x=test_images, steps=len(test_images), verbose=0)
+    # predictions.append(prediction)
+
+    predictions_probs = model.predict(test_images, verbose = 1)
+
+    scores = []
+    for prediction in predictions_probs:
+        if prediction >= .5:
+            scores.append(1)
+        else:
+            scores.append(0)
+    predictions.append(scores)
+
+    cm = confusion_matrix(y_true=test_labels, y_pred=scores)#y_pred=np.argmax(prediction, axis=-1)
     cms.append(cm)
 
     #calculate AUC of model
