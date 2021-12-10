@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200|Open+Sans+Condensed:700" rel="stylesheet">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+        <!-- <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+        <title>AI Wildfire Detection</title>
+    </head>
+    <body>
+        <div class="navbar__container" id="navbar__container">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="navbar-brand" href="#header">
+                        <img src="img/logo-white.png" alt="Wild Fire Detection" class="navbar__logo" id="navbar__logo" style="height: 2rem;">
+                    </a>
+                    <button class="navbar-toggler" id="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" onclick="app_controller.ctrl_nav_toggle()">
+                        <span class="navbar__icon" id="navbar__icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto w-100 justify-content-end">
+                            <li class="nav-item" id="nav-item--1">
+                                <a class="nav-link" id="nav-link--1" href="#header">Home</a>
+                            </li>
+                            <li class="nav-item" id="nav-item--2">
+                                <a class="nav-link" id="nav-link--2" href="#section__blog">Blog</a>
+                            </li>
+                            <li class="nav-item" id="nav-item--3">
+                                <a class="nav-link" id="nav-link--3" href="#section__updates">Updates</a>
+                            </li>
+                            <li class="nav-item" id="nav-item--4">
+                                <a class="nav-link" id="nav-link--4" href="#section__documentation">Try</a>
+                            </li>
+                            <li class="nav-item" id="nav-item--5">
+                                <a class="nav-link" id="nav-link--5" href="https://github.com/sdeittrick/Wildfire_Detection_Capstone_697">Github</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <button class="navbar__filter navbar__filter--closed" id="navbar__filter" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" onclick="app_controller.ctrl_nav_toggle()">
+        </button>
+        <header class="header section__bg-video" id="header" header-change="300">
+            <div class="bg-video">
+                <video class="bg-video__content" autoplay muted loop>
+                    <source src="img/video.mp4" type="video/mp4">
+                    <source src="img/video.webm" type="video/webm">
+                        Panoramic View of Dataset in Unreal Game Engine.
+                </video>                    
+            </div>            
+            <div class="header__text-box">
+                <h1 class="heading-primary">
+                    <span class="heading-primary--main">The New Way To Prevent Wildfires</span>
+                </h1>
+            </div>
+            <div class="header__arrow">
+                <a href="#section__blog" class="btn-arrow">
+                    <span class="btn-arrow--downarrow"></span>
+                </a>
+            </div>
+        </header>
+        <main>
+            <section class="section__about" id="section__blog">
+                <div class="about">
+                    <div class="about__row">
+                        <div class="row row-small">
+                            <div class="about__text">
+                                <div class="heading-tertiary">Protecting the Forest.</div>
+                                <div class="about__paragraph u-margin-bottom-small">In recent years, climate change has facilitated an inexcusable influx of large-scale droughts and lengthy fire seasons across the globe. Disturbingly the dramatic increase in wildfires has devastated communities and natural beauty. In California, during the record drought conditions of 2014, Fire Safe Marin, Pacific Gas and Electric Company (PG&E), and Marin County Fire Department collaborated to install Marin’s remote wildfire detection system. One of the first systems served to assist firefighters in identifying new wildfire locations. Since then, the operations had expanded in 2017. The Geographic community has pressured local and federal governments to implement human-monitored camera systems to detect forest fires.</div>
+                                <div class="about__paragraph u-margin-bottom-small">While there is a wide range of methods in monitoring forests, only recently have methods of virtual segmentation datasets for image recognition that can realistically simulate large-scale tree canopies been available. This research avenue has expanded due to advancements in real-time rendering through advanced graphics cards capable of light particle simulation with ray tracing and virtual geometry systems such as Nanite available through Unreal Engine 5. Together these methods provide a realistic environment virtually that can replace the needs for real-life image data collection.</div>
+                                <div class="heading-tertiary">Developing an Unreal Dataset.</div>
+                                <div class="about__paragraph u-margin-bottom-small">Using Unreal Engine for dataset generation can be plug-and-play with Blueprints and landscape procedural generation. Though there is significant research and design in generating accurate data, the core methods are simplistic. They are essentially teleporting a first-person controller around the map to take screenshots of the landscape to create a robust dataset.</div>
+                                <div class="about__paragraph u-margin-bottom-small">Though for this project, we needed variation in the environment. We used a <a href="https://www.unrealengine.com/marketplace/en-US/product/sky-creator/reviews" style="color: #F25757;">plugin for Unreal Engine called Sky Creator</a> that could dynamically change the time of day and cloud coverage. By creating small datasets of minor variations with these differing conditions, we combined them into a large dataset that represents the landscape with typical cloud coverages and lighting conditions. </div>
+                                <div class="sm-background sm-background--2 sm-background--large"></div>
+                                <br>
+                                <div class="about__paragraph u-margin-bottom-small">The dataset we created is a 35 x 35 kilometers map based on real-life topography outside Nimrod, Oregon, in the Willamette National Forest. Known for their beautiful dense Douglass Fir forests, these forests can easily be replicated in-game through procedural generation by creating parameters between various assets. Though processing power is a limiting factor, using Unreal console commands can help get clear screenshots. </div>
+                                <div class="about__paragraph u-margin-bottom-small">Of course, not every landscape looks like the one we generated. But that is precisely the reason we chose to use Unreal Engine to create a custom dataset. Suppose we included another geographic area like the Western Rocky Mountains or the Australian Bush. In that case, we can get real-life topography and use procedural generation precisely like I did to populate the landscape with foliage. </div>
+
+                                <div class="heading-tertiary">Data Processing and Modeling.</div>
+                                <div class="about__paragraph u-margin-bottom-small">Processing that images required transforming them into a format that could be input into our TensorFlow CNN model. This included normalizing pixels to values between 0 and 1, converting to arrays, and converting to tensors. An additional processing measure, data augmentation, was conducted during model development to prevent overfitting, thus theoretically improving generalization. Specifically, functionality was built to flip images along the vertical access, increase contrast, increase saturation, and increase brightness. Ultimately, only flipping images provided predictive improvement. We anticipate the marginal benefit came from a larger sample size of essentially the same pictures. </div>
+                                <div class="about__paragraph u-margin-bottom-small">Model development involved tinkering with layers and hyperparameters along the way. Specifically, we adjusted the number of convolution layers, activation functions, and inclusions of dropout layers. Additionally, various units, dropout rates, and optimizers were iteratively assessed during model generation and prediction. Performance dictated our direction with changes made to the model over time.</div>
+                                <div class="heading-tertiary">Measuring Performance.</div>
+                                <div class="about__paragraph u-margin-bottom-small">Improving our model’s performance proved challenging, given both the limited availability of images and the ideal theoretical testing split for images with fire and those without. An extreme testing split was suggested to us based on the premise that the vast majority of images incoming through an active video stream will not contain the fire. We used a confusion matrix and AUC to guide our hyperparameter tuning as we worked through this. We also leveraged both real-world datasets and unreal engine images to assess generalization in testing. The disparity in performance between the two raises several questions which warrant additional research. First, are the Unreal Engine images we’ve trained the model on fundamentally different than real-world images in terms of “realness”? Or, do the real-world images capture scenes that differ substantially from those in unreal. Based on our qualitative review, we suppose the latter. More real-world images similar in the scene to those produced in Unreal Engine are needed to test this hypothesis. </div>
+                                <div class="heading-tertiary">The Future of Unreal Datasets.</div>
+                                <div class="about__paragraph u-margin-bottom-small">This type of dataset generation is extremely new because it wasn't quite possible in the past. But as graphical technologies dramatically improve, the line of real-life and hyper-realism is blurred. Today the latest iterations of Unreal Engine come closer than we ever have in real-time to replicating life, and indeed, with careful calibration, can look real life to a neural network. </div>
+                                <div class="about__paragraph u-margin-bottom-small">Though virtual datasets for image segmentation is not foolproof and needs careful consideration for the environment it represents, it certainly has a future in climate science in the greater data science fields. Our hope for this project is to add to the research of such datasets and provide input on how future developments can improve with our findings. For further information or continued explanation, please refer to the full article. </div>
+                                
+                                <a href="https://docs.google.com/document/d/1KL5m8Rhk-LxnvMVKsS_5K8OEObJSrm4m_Zfzep6vTIA/edit?usp=sharing" class="btn-text btn-text--black btn-text--small">View the Full Paper</a> 
+                                &nbsp; &nbsp;
+                                <a href="https://github.com/sdeittrick/Wildfire_Detection_Capstone_697" class="btn-text btn-text--black btn-text--small">See on Github</a>
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="about__row" id="section__updates">
+                        <div class="row row-small">
+                            <div class="col-1-of-2">
+                                <div class="about__image about__image--4 about__image--small"></div>
+                            </div>
+                            <div class="col-1-of-2">
+                                <div class="about__text">
+                                    <div class="heading-tertiary">Preventing Wildfires.</div>
+                                    <div class="about__paragraph u-margin-bottom-small">We were able to predict if all of these images have a wildfire in them by using a dataset made entirely in Unreal Engine. This project was a lot of work but is a step to accessible wildfire detection that doesn’t only look for fire when it’s too late because it learns what every unique location should look like and removes the need for expensive data collection.</div>
+                                    <a href="" class="btn-text btn-text--black btn-text--small">Watch the Video</a>
+                                </div>                                
+                            </div>
+                        </div>  
+                    </div> 
+                    <div class="about__row" id="section__updates">
+                        <div class="row row-small">
+                            <div class="col-1-of-2">
+                                <div class="about__image about__image--3 about__image--small"></div>
+                            </div>
+                            <div class="col-1-of-2">
+                                <div class="about__text">
+                                    <div class="heading-tertiary">Game Engines for Datasets?</div>
+                                    <div class="about__paragraph u-margin-bottom-small">Is Unreal Engin the future of image segmentation dataset generation? Maybe, but it certainly takes a lot of work and understanding of the environment to get ideal results. Let’s discuss some of the pros and cons of the approach.</div>
+                                    <a href="" class="btn-text btn-text--black btn-text--small">Watch the Video</a>
+                                </div>                                
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="about__row" id="section__updates">
+                        <div class="row row-small">
+                            <div class="col-1-of-2">
+                                <div class="about__image about__image--1 about__image--small"></div>
+                            </div>
+                            <div class="col-1-of-2">
+                                <div class="about__text">
+                                    <div class="heading-tertiary">Creating a Neural Network.</div>
+                                    <div class="about__paragraph u-margin-bottom-small">Using Tensorflow and Keras we created a Convolutional Neural Network trained on nearly 3000 images that combat overfitting and augmentation images all while determining the best parameters.</div>
+                                    <a href="https://youtu.be/9kNCwVgJjYQ" class="btn-text btn-text--black btn-text--small">Watch the Video</a>
+                                </div>                                
+                            </div>
+                        </div>                        
+                    </div> 
+                    <div class="about__row">
+                        <div class="row row-small">
+                            <div class="col-1-of-2">
+                                <div class="about__image about__image--2 about__image--small"></div>
+                            </div>
+                            <div class="col-1-of-2">
+                                <div class="about__text">
+                                    <div class="heading-tertiary">Developing a Dataset.</div>
+                                    <div class="about__paragraph u-margin-bottom-small">Completely generated in Unreal Game Engine is a 35 x 35 km landscape taken from real-life topography in the Cascade Mountain range. This expansive tree canopy is decorated like a new growth forest, primarily seen in higher-risk fire danger areas and around logging.</div>                                
+                                    <a href="https://youtu.be/ikRAucZKuVU" class="btn-text btn-text--black btn-text--small">Watch the Video</a>
+                                </div>                                
+                            </div>
+                        </div>                        
+                    </div> 
+                    <div class="about__row" id="section__documentation">
+                        <div class="row row-small">
+                            <div class="col-1-of-2">
+                                <div  class="drop-zone about__image about__image--small" id="file-drag">
+                                    <input id="file-upload" class="hidden" type="file" accept="image/x-png,image/gif,image/jpeg" />
+                                    <span class="drop-zone__prompt upload-caption">Drop image here or click to upload</span>
+                                    <input type="file" name="myFile" class="drop-zone__input" accept="image/x-png,image/gif,image/jpeg">
+                                </div>
+                            </div>
+                            <div class="col-1-of-2">
+                                <div class="about__text">
+                                    <div class="heading-tertiary">Test Your Own Image.</div>
+                                    <div class="about__paragraph u-margin-bottom-small">Don’t have your own images? You can <a href="https://drive.google.com/file/d/1ypOWtpAokHZmOv50lEn3a6iGQ1igfjlb/view?usp=sharing" style="color: #F25757;">download real-life and Unreal Game engine images here </a>to test out the neural network.</div>
+
+                                    <input type="button" value="Clear Results" class="btn-text btn-text--black btn-text--small" onclick="clearImage();"/>
+                                    &nbsp; &nbsp;
+                                    <input type="button" value="Classify Image" class="btn-text btn-text--black btn-text--small" onclick="predict();"> 
+                                    <!-- &nbsp; &nbsp;
+                                    <a href="https://github.com/sdeittrick/Wildfire_Detection_Capstone_697" class="btn-text btn-text--black btn-text--small">See on Github</a> -->
+                                    <!-- <div style="text-align: center;font-weight: 900;" id="pred-result2" class="hidden"></div> -->
+                                    <br><br><br>
+                                    <div class="about__paragraph u-margin-bottom-small" id="pred-result2" class="hidden"></div>
+                                    
+
+                                    
+                                </div>                            
+                            </div>
+                            <div id="image-box">
+                                <img id="image-display" />
+                                <svg id="loader" class="hidden" viewBox="0 0 32 32" width="32" height="32">
+                                    <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </section>
+            <section class__bg-video>
+                <div class="sm-background sm-background--1 sm-background--large">
+                    <div class="sm-background__text">
+                        <div class="heading-secondary sm-background__heading u-margin-bottom-medium">
+                            Want access to the dataset?
+                        </div>
+                        <br>
+                        <button class="btn btn--orange">
+                            <a class="btn__link" href="mailto:logantc@umich.edu">Contact Us</a>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="footer" id="footer">
+            <div class="row row-small">
+                <div class="col-1-of-3">
+                    <div class="footer__title">
+                        Contact Us
+                    </div>
+                    <div class="footer__navigation">
+                        <ul class="footer__list">
+                            <li class="footer__item"><a href="mailto:logantc@umich.edu" class="footer__link">Logan Crawford</a></li>
+                            <li class="footer__item"><a href="mailto:shdeitt@umich.edu" class="footer__link">Scott Deittrick</a></li>
+                            <li class="footer__item"><a href="mailto:npessner@umich.edu" class="footer__link">Nick Essner</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-small">
+                <div class="footer__copyright u-right-text">
+                    &copy;
+                    <span class="footer__date--year">2022</span>
+                    <a href="https://www.blue-pencil.app" class="footer__copyright-link">blue pencil</a>. Coded by
+                    <a href="https://www.logantcrawford.com/" class="footer__copyright-link">Logan Crawford</a>.
+                </div>
+            </div>
+        </footer>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="./js/index.js" type="text/javascript"></script>
+    </body>
+</html>
