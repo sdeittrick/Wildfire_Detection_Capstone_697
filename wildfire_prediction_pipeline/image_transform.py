@@ -9,6 +9,7 @@ import PIL
 from PIL import Image
 
 def get_image_stats(image_arrays):
+    """Get image dimensions to use for padding and cropping"""
     widths = [array.shape[0] for array in image_arrays]
     lengths = [array.shape[1] for array in image_arrays]
     width_mean = np.mean(widths)

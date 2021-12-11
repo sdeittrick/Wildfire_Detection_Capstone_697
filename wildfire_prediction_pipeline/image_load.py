@@ -19,6 +19,7 @@ def resize_image(img):
     return img
 
 def get_image_stats(image_arrays):
+    """get image stats for loading in images"""
     widths = [array.shape[0] for array in image_arrays]
     lengths = [array.shape[1] for array in image_arrays]
     width_mean = np.mean(widths)

@@ -6,12 +6,11 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import sklearn
 
-mpl.rcParams['figure.figsize'] = (12, 10)
-colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
-
 def plot_roc(name, labels, predictions, **kwargs):
+  """ROC/AUC plot"""
   fp, tp, _ = sklearn.metrics.roc_curve(labels, predictions)
-
+  mpl.rcParams['figure.figsize'] = (12, 10)
+  colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
   plt.plot(100*fp, 100*tp, label=name, linewidth=2, **kwargs)
   plt.xlabel('False positives [%]')
   plt.ylabel('True positives [%]')
@@ -23,7 +22,7 @@ def plot_roc(name, labels, predictions, **kwargs):
 
 
 def line_chart(history):
-
+    """Line chart showing model evaulation on different metrics"""
     history_df = pd.DataFrame(history.history).reset_index()
     history_df = history_df.rename(columns={'index':'epoch'})
     accuracy_df = pd.melt(history_df, id_vars=['epoch'], value_vars=['accuracy', 'precision','recall','auc'])
@@ -48,17 +47,12 @@ def line_chart(history):
     return performanceChart
 
 def plot_confusion_matrix_2(cm, normalize=True):
-    
+    """Confusion Matrix Plot"""
     group_names = ['True Negative (no fire)','False Positive (fire)','False Negative (no fire)','True Positive (fire)']
-
     group_counts = ["{0:0.0f}".format(value) for value in
                     cm.flatten()]
-
     group_percentages = ["{0:.2%}".format(value) for value in
                          cm.flatten()/np.sum(cm)]
-
-#     labels = [f"{v1}\n{v2}\n{v3}" for v1, v2, v3 in
-#               zip(group_names,group_counts,group_percentages)]
 
     if normalize:
         labels = [f"{v1}\n\n{v2}" for v1, v2 in
@@ -86,19 +80,9 @@ def plot_confusion_matrix_2(cm, normalize=True):
     plt.ylim(2, 0) # update the ylim(bottom, top) values
     plt.show() # ta-da!
 
-# def plot_roc(name, labels, predictions, **kwargs):
-#   fp, tp, _ = sklearn.metrics.roc_curve(labels, predictions)
-
-#   plt.plot(100*fp, 100*tp, label=name, linewidth=2, **kwargs)
-#   plt.xlabel('False positives [%]')
-#   plt.ylabel('True positives [%]')
-#   plt.xlim([-0.5,50])
-#   plt.ylim([80,100.5])
-#   plt.grid(True)
-#   ax = plt.gca()
-#   ax.set_aspect('equal')
 
 def plot_metrics(history):
+  """plot of different metrics"""
   metrics = ['loss', 'prc', 'precision', 'recall']
   for n, metric in enumerate(metrics):
     name = metric.replace("_"," ").capitalize()
@@ -118,25 +102,24 @@ def plot_metrics(history):
     plt.legend()
 
 def plot_images(images, labels):
+    """plot images for display"""
     import math
-
-    p_size = 4
-
+    p_size = 5
     class_names = ['no_fire','fire']
-    plt.figure(figsize=(35,35))
+    plt.figure(figsize=(10,6))
     for i in range(p_size**2):
         plt.subplot(p_size,p_size,i+1)
         plt.xticks([])
         plt.yticks([])
         plt.grid(False)
         plt.imshow(images[i])
-        plt.xlabel(class_names[labels[i][0]], fontsize=18)
+        plt.xlabel(class_names[int(labels[i][0])])
 
 def visualize(original, augmented):
-
+  """viualize augmentation plot"""
   p_size = 4
 
-  fig = plt.figure(figsize=(35,35))
+  fig = plt.figure(figsize=(15,15))
   plt.subplot(1,2,1)
   plt.title('Original image')
   plt.imshow(original)
