@@ -39,6 +39,21 @@ To test the performance of our model we have utilized the Corsican Wildfire Data
 - View [Corsican dataset website](http://cfdb.univ-corse.fr/index.php?menu=1)
 
 ## Downloading the Data
+To download a sample set of the data use the pickle files found in the wildfire_prediction_pipline/artifacts folder: 
+
+```
+import pickle
+dir = os.getcwd()
+
+with open('{}/artifacts/{}'.format(dir, 'train_images_unrealEvenish_pkl.pkl'), 'rb') as pickle_file: #train_images_pkl_all.pkl
+    train_data = pickle.load(pickle_file)
+
+with open('{}/artifacts/{}'.format(dir, 'test_images_pkl_uneven_w_drone.pkl'), 'rb') as pickle_file: #test_images_pkl_even_ratio.pkl
+    test_data = pickle.load(pickle_file)
+```
+
+This will load two separate datasets. The first is a sample of the unreal images used for training the model as well as a test set of drone and fire images. 
+
 ## Model Requirments and Installation
 ## Performance Metrics Jupyter Notebook
 ## Website setup Instructions
