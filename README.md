@@ -67,11 +67,11 @@ For setting up the model, utilize the model exploration notebook, which will loa
 
 Sample model peformence visualizaitons: 
 
-![confusion matrix](assets/confusionmatrix2.jpg)
+![confusion matrix](assets/confusionmatrix2.png)
 
 ![ROC Curve](assets/ROC_AUC.jpg)
 
-![metrics](metrics_vis.png)
+![metrics](assets/metrics_vis.png)
 
 ## Website setup Instructions
 To view the website the Github Pages with a live TensorFlow model can be viewed here. [viewed here](https://logantcrawford.github.io/wildfire-detection-system/)
