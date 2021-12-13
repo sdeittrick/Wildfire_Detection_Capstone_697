@@ -63,14 +63,17 @@ pip install -r requirements.txt
 
 ## Model Exploration Jupyter Notebook
 
-For setting up the model, utilize the model exploration notebook, which will load in the images, transform and run the model. For the model, one can change different hyperparams of the models in the "Model Creation" section (epochs, num_units, dropout_rate and optimizer to evaluate it's effects on the model performance metrics. 
+For setting up the model, utilize the model exploration notebook, which will load in the images, transform and run the model. For the model, one can change different hyperparams of the models in the "Model Creation" section (epochs, num_units, dropout_rate and optimizer) to evaluate it's effects on the model performance metrics. 
 
 Sample model peformence visualizaitons: 
 
-![confusion matrix](assets/confusionmatrix2.png)
+Confusion Matrix:
+![confusion matrix](assets/consfusionmatrix2.png)
 
-![ROC Curve](assets/ROC_AUC.jpg)
+ROC Curve 
+![ROC Curve](assets/ROC_AUC.png)
 
+Metrics Visualization
 ![metrics](assets/metrics_vis.png)
 
 ## Website setup Instructions
