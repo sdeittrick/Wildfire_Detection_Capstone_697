@@ -54,8 +54,25 @@ with open('{}/artifacts/{}'.format(dir, 'test_images_pkl_uneven_w_drone.pkl'), '
 
 This will load two separate datasets. The first is a sample of the unreal images used for training the model as well as a test set of drone and fire images. 
 
-## Model Requirments and Installation
-## Performance Metrics Jupyter Notebook
+## Model Requirements and Installation
+Prior to running the model please install and set up the project dependencies utilizing the requirements .txt file. 
+
+```
+pip install -r requirements.txt
+```
+
+## Model Exploration Jupyter Notebook
+
+For setting up the model, utilize the model exploration notebook, which will load in the images, transform and run the model. For the model, one can change different hyperparams of the models in the "Model Creation" section (epochs, num_units, dropout_rate and optimizer to evaluate it's effects on the model performance metrics. 
+
+Sample model peformence visualizaitons: 
+
+![confusion matrix](assets/confusionmatrix2.jpg)
+
+![ROC Curve](assets/ROC_AUC.png)
+
+![metrics](metrics_Vis.png)
+
 ## Website setup Instructions
 To view the website the Github Pages with a live TensorFlow model can be viewed here. [viewed here](https://logantcrawford.github.io/wildfire-detection-system/)
 
