@@ -73,7 +73,7 @@ Confusion Matrix:
 
 ROC Curve:
 
-![ROC Curve](assets/ROC_AUC.png)
+![ROC Curve](assets/ROC_AUC_vis.png)
 
 Metrics Visualization:
 
