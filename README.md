@@ -71,11 +71,11 @@ Confusion Matrix:
 
 ![confusion matrix](assets/consfusionmatrix2.png)
 
-ROC Curve 
+ROC Curve:
 
 ![ROC Curve](assets/ROC_AUC.png)
 
-Metrics Visualization
+Metrics Visualization:
 
 ![metrics](assets/metrics_vis.png)
 
