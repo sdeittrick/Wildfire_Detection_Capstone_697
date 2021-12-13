@@ -69,9 +69,9 @@ Sample model peformence visualizaitons:
 
 ![confusion matrix](assets/confusionmatrix2.jpg)
 
-![ROC Curve](assets/ROC_AUC.png)
+![ROC Curve](assets/ROC_AUC.jpg)
 
-![metrics](metrics_Vis.png)
+![metrics](metrics_vis.png)
 
 ## Website setup Instructions
 To view the website the Github Pages with a live TensorFlow model can be viewed here. [viewed here](https://logantcrawford.github.io/wildfire-detection-system/)
