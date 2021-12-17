@@ -51,8 +51,30 @@ def plot_confusion_matrix_2(cm, normalize=True):
     group_names = ['True Negative (no fire)','False Positive (fire)','False Negative (no fire)','True Positive (fire)']
     group_counts = ["{0:0.0f}".format(value) for value in
                     cm.flatten()]
+<<<<<<< HEAD
+
+    TN = int(group_counts[0])
+    FP = int(group_counts[1])
+    FN = int(group_counts[2])
+    TP = int(group_counts[3])
+    
+    # TNrate = (TN/((TN+FP)*100))
+    # FPrate = (FP/((TN+FP)*100))
+    # FNrate = (FN/((FN+TP)*100))
+    # TPrate = (TP/((FN+TP)*100))
+
+    # truth = (TNrate + TPrate) * 100
+
+    TNrate = round(TN/((TN+FP)*100),2)
+    FPrate = round(FP/((TN+FP)*100),2)
+    FNrate = round(FN/((FN+TP)*100),2)
+    TPrate = round(TP/((FN+TP)*100),2)
+
+    group_percentages = [str(TN/(TN+FP)*100),str(FP/(TN+FP)*100),str(FN/(FN+TP)*100),str(TP/(FN+TP)*100)]
+=======
     group_percentages = ["{0:.2%}".format(value) for value in
                          cm.flatten()/np.sum(cm)]
+>>>>>>> 40254885c06ee55ca434d2df906bef5d3017cb3e
 
     if normalize:
         labels = [f"{v1}\n\n{v2}" for v1, v2 in
@@ -61,7 +83,11 @@ def plot_confusion_matrix_2(cm, normalize=True):
         labels = [f"{v1}\n\n{v2}" for v1, v2 in
               zip(group_names,group_counts)]
 
+    # print(group_counts)
+
     labels = np.asarray(labels).reshape(2,2)
+
+    # print(labels[0][0])
 
     ax = sns.heatmap(cm, annot=labels, fmt='', cmap='Reds')
     
@@ -80,6 +106,22 @@ def plot_confusion_matrix_2(cm, normalize=True):
     plt.ylim(2, 0) # update the ylim(bottom, top) values
     plt.show() # ta-da!
 
+<<<<<<< HEAD
+    return TNrate, FPrate, FNrate, TPrate
+
+# def plot_roc(name, labels, predictions, **kwargs):
+#   fp, tp, _ = sklearn.metrics.roc_curve(labels, predictions)
+
+#   plt.plot(100*fp, 100*tp, label=name, linewidth=2, **kwargs)
+#   plt.xlabel('False positives [%]')
+#   plt.ylabel('True positives [%]')
+#   plt.xlim([-0.5,50])
+#   plt.ylim([80,100.5])
+#   plt.grid(True)
+#   ax = plt.gca()
+#   ax.set_aspect('equal')
+=======
+>>>>>>> 40254885c06ee55ca434d2df906bef5d3017cb3e
 
 def plot_metrics(history):
   """plot of different metrics"""
