@@ -28,7 +28,6 @@ def line_chart(history):
     accuracy_df = pd.melt(history_df, id_vars=['epoch'], value_vars=['accuracy', 'precision','recall','auc'])
     loss_df = pd.melt(history_df, id_vars=['epoch'], value_vars=['loss'])
     history_df = pd.melt(history_df, id_vars=['epoch'], value_vars=['accuracy', 'precision','recall', 'auc', 'loss'])
-    display(history_df.head())
 
     performanceChart = alt.Chart(history_df,title='Model performance').mark_line(size=3).encode(
         x=alt.X('epoch',axis=alt.Axis(title='Epoch', grid=False,tickCount=10)),
@@ -88,9 +87,10 @@ def plot_confusion_matrix_2(cm, normalize=True):
     
     sns.set_style('whitegrid', {'font.family':'arial', 'font.arial':'Arial Narrow'})
 
-    ax.set_title('Image confusion matrix\n',fontdict = { 'fontsize': 16});
-    ax.set_xlabel('\nPredicted Values',fontdict = { 'fontsize': 12})
-    ax.set_ylabel('Actual Values ',fontdict = { 'fontsize': 12});
+    ax.set_title('Image confusion matrix\n',fontdict = { 'fontsize': 20});
+    ax.set_xlabel('\nPredicted Values',fontdict = { 'fontsize': 14})
+    ax.set_ylabel('Actual Values ',fontdict = { 'fontsize': 14});
+    plt.rcParams.update({'font.size': 12})
 
     ## Ticket labels - List must be in alphabetical order
     ax.xaxis.set_ticklabels(['False','True'])
