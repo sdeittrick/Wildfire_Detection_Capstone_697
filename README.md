@@ -45,10 +45,10 @@ To download a sample set of the data use the pickle files found in the wildfire_
 import pickle
 dir = os.getcwd()
 
-with open('{}/artifacts/{}'.format(dir, 'train_images_unrealEvenish_pkl.pkl'), 'rb') as pickle_file: #train_images_pkl_all.pkl
+with open('{}/artifacts/{}'.format(dir, 'train_images_pkl.pkl'), 'rb') as pickle_file: #train_images_pkl_all.pkl
     train_data = pickle.load(pickle_file)
 
-with open('{}/artifacts/{}'.format(dir, 'test_images_pkl_uneven_w_drone.pkl'), 'rb') as pickle_file: #test_images_pkl_even_ratio.pkl
+with open('{}/artifacts/{}'.format(dir, 'test_images_pkl.pkl'), 'rb') as pickle_file: #test_images_pkl_even_ratio.pkl
     test_data = pickle.load(pickle_file)
 ```
 
@@ -69,7 +69,7 @@ Sample model peformence visualizaitons:
 
 Confusion Matrix:
 
-![confusion matrix](assets/consfusionmatrix2.png)
+![confusion matrix](assets/confusionmatrix2.png)
 
 ROC Curve:
 
