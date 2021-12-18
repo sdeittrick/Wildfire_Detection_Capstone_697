@@ -158,9 +158,9 @@ def train_test_model(hparams,epochs,input_shape,train_images,train_labels,test_i
     )
     
 
-    model.fit(train_images, train_labels, epochs=epochs, validation_data=(test_images, test_labels)),
+    history = model.fit(train_images, train_labels, epochs=epochs, validation_data=(test_images, test_labels)),
     model.save("artifacts/model_all.h5")
-    histories.append(model.history)
+    histories.append(history)
     loss, tp, fp, tn, fn, accuracy, precision, recall, auc, prc= model.evaluate(test_images, test_labels)
     
     losses.append(loss)

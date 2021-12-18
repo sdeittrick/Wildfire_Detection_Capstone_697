@@ -91,9 +91,10 @@ def plot_confusion_matrix_2(cm, normalize=True):
     
     sns.set_style('whitegrid', {'font.family':'arial', 'font.arial':'Arial Narrow'})
 
-    ax.set_title('Image confusion matrix\n',fontdict = { 'fontsize': 16});
-    ax.set_xlabel('\nPredicted Values',fontdict = { 'fontsize': 12})
-    ax.set_ylabel('Actual Values ',fontdict = { 'fontsize': 12});
+    ax.set_title('Image confusion matrix\n',fontdict = { 'fontsize': 20});
+    ax.set_xlabel('\nPredicted Values',fontdict = { 'fontsize': 14})
+    ax.set_ylabel('Actual Values ',fontdict = { 'fontsize': 14});
+    plt.rcParams.update({'font.size': 12})
 
     ## Ticket labels - List must be in alphabetical order
     ax.xaxis.set_ticklabels(['False','True'])
