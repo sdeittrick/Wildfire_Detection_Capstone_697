@@ -69,7 +69,7 @@ Sample model peformence visualizaitons:
 
 Confusion Matrix:
 
-![confusion matrix](assets/confusionmatrix2.png)
+![confusion matrix](assets/confusionmatrix.png)
 
 ROC Curve:
 
