@@ -28,10 +28,13 @@ def line_chart(history):
     accuracy_df = pd.melt(history_df, id_vars=['epoch'], value_vars=['accuracy', 'precision','recall','auc'])
     loss_df = pd.melt(history_df, id_vars=['epoch'], value_vars=['loss'])
     history_df = pd.melt(history_df, id_vars=['epoch'], value_vars=['accuracy', 'precision','recall', 'auc', 'loss'])
+    history_df['epoch'].replace(2, 3, inplace=True)
+    history_df['epoch'].replace(1, 2, inplace=True)
+    history_df['epoch'].replace(0, 1, inplace=True) 
     display(history_df.head())
 
     performanceChart = alt.Chart(history_df,title='Model performance').mark_line(size=3).encode(
-        x=alt.X('epoch',axis=alt.Axis(title='Epoch', grid=False,tickCount=10)),
+        x=alt.X('epoch',axis=alt.Axis(title='Epoch', grid=False,tickCount=3)),
         y=alt.Y('value',axis=alt.Axis(title='Accuracy/Loss',format='%')),
         color=alt.Color('variable',scale=alt.Scale(range=['#6f0000','#696969','#ff7b7b','#CC5500','#458205']),
         legend=alt.Legend(title=None,labelFont='Arial',labelColor='#696969',labelFontSize=14))
